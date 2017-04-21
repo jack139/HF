@@ -1,0 +1,58 @@
+$def with (name, str, info)
+
+$var title: 系统状态
+$var css:
+$var js:
+$var name: $str $name
+    
+<h3>系统状态</h3>
+
+<p><b> $info['uptime']</b></p>
+$for l in info['df_data']:
+  <p>&nbsp;&nbsp;$l</p>
+<br/>
+
+<h3>进程状态: </h3>
+
+<table>
+<tr><td class="dotbt">Web界面</td>     <td class="dotb">$info['ipcam']</td></tr>
+<tr><td class="dotbt">视频录像</td>     <td class="dotb">$info['rec']</td></tr>
+<tr><td class="dotbt">视频回放</td> <td class="dotb">$info['stream']</td></tr>
+<tr><td class="dotbt">远程同步</td> <td class="dotb">$info['sync']</td></tr>
+<tr><td class="dotbt">移动侦测</td>  <td class="dotb">$info['detector']</td></tr>
+<tr><td class="dotbt">守护进程</td>    <td class="dotb">$info['daemon']</td></tr>
+</table>
+
+<h3>backbone日志: </h3>
+$for l in info['backbone_log']:
+  <p>&nbsp;&nbsp;$l</p>
+
+<h3>daemon日志: </h3>
+$for l in info['daemon_log']:
+  <p>&nbsp;&nbsp;$l</p>
+
+<h3>detector日志: </h3>
+$for l in info['detector_log']:
+  <p>&nbsp;&nbsp;$l</p>
+
+<h3>stream日志: </h3>
+$for l in info['stream_log']:
+  <p>&nbsp;&nbsp;$l</p>
+
+<h3>sync日志: </h3>
+$for l in info['sync_log']:
+  <p>&nbsp;&nbsp;$l</p>
+  
+<h3>bar.js日志: </h3>
+$for l in info['barjs_log']:
+  <p>&nbsp;&nbsp;$l</p>
+
+<h3>Nginx error日志: </h3>
+$for l in info['error_log']:
+  <p>&nbsp;&nbsp;$l</p>
+
+<h3>uWSGI日志: </h3>
+$for l in info['uwsgi_log']:
+  <p>&nbsp;&nbsp;$l</p>
+
+<br/>

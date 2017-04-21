@@ -1,0 +1,24 @@
+$def with (name, str, settings)
+
+$var title: 系统设置
+$var css:
+$var js:
+$var name: $str $name
+    
+<h3>系统设置</h3>
+
+<form name="settings" method="post" action="/admin/sys_setting">  
+<p> <b>用户注册：</b>
+<input type="radio" name="signup" value="1"  
+  $if settings['signup']==1: 
+    checked 
+  /> 允许
+<input type="radio" name="signup" value="0"  
+  $if settings['signup']!=1: 
+    checked 
+  /> 禁止
+</p>
+<p><input class="formbutton" type="submit" name="button" id="button" value="保存" /><p>
+
+</form>
+

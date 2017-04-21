@@ -1,0 +1,32 @@
+$def with (name, str, cam_name, time, alert)
+
+$var title: 报警内容
+$var css:
+$var js:
+$var name: $str $name
+$var load:
+    
+<h3>报警内容</h3>
+
+
+<p>相机：$cam_name</p>
+<p>时间：$time</p>
+<p>报警类型：
+  $if alert['type']=='motion':
+    移动监测
+  $else:
+    相机故障
+  </p>
+<p>报警通知：
+  $if alert['sent']==1:
+    已发送
+  $elif alert['sent']==-1: 
+    发送失败（邮件地址问题）
+  $else: 
+    未发送
+  </p>
+$if alert['type']=='motion':    
+  <p>快照</p>
+  <img width="900" src="/snapshot?camid=$(alert['cam'])&snapid=$(alert['_id'])"/>
+
+<p><a class="rdact" href="javascript:history.go(-1);">返回</a></p>

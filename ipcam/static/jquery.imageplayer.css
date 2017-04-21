@@ -1,0 +1,116 @@
+.img_player {
+    background:#fff;
+    border:1px solid #ddd;
+    padding:10px 10px 10px 10px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    text-align: center;
+}
+
+.img_player img {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.img_player.full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    overflow: hidden;
+    z-index: 100;
+}
+
+.img_player .stage {
+    margin: 0 auto 0 auto;
+    padding: 0;
+    border: 0;
+    overflow:hidden;
+    text-align:center;    
+    position: relative;
+    background: url('data:image/gif;base64,R0lGODlhEAAQAPIAADMzM+7u7l5eXr29ve7u7qWlpY6OjoKCgiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==') no-repeat 50% 50%;
+}
+
+
+.img_player .caption {
+    font-size: 12pt;
+    color: #AAA;
+    position: absolute;
+    z-index: 9999;
+    bottom: 4px;
+    text-align: center;
+    width: 100%;
+    text-shadow: 1px 1px black;
+}
+
+.img_player .controls {
+    margin: 0 auto 0 auto;
+    height: 40px;
+    background:url(/static/images/player.png) 0 -120px repeat-x;
+    overflow:hidden;
+    border-radius: 0px 0px 15px 15px;
+}
+
+.img_player .controls a {
+    text-decoration:none;
+    outline:none !important;
+    text-indent:-9999px;
+    display:block;
+    float:left;
+    width:35px;
+    height:40px;
+   ie-dummy: expression(this.hideFocus=true);
+}
+
+.img_player .controls a:hover, .img_player .controls a:select, .img_player .controls a:active, .img_player .controls a:focus {
+    outline:none;
+}
+
+.img_player a.play  { background:url(/static/images/player.png) 0 0px no-repeat; }
+.img_player a.pause { background:url(/static/images/player.png) 0 -40px no-repeat; }
+.img_player a.next { background:url(/static/images/player.png) 0 -292px no-repeat; }
+.img_player a.prev   { background:url(/static/images/player.png) 0 -332px no-repeat; }
+.img_player a.start { background:url(/static/images/player.png) 0 -212px no-repeat; }
+.img_player a.end   { background:url(/static/images/player.png) 0 -172px no-repeat; }
+.img_player a.fullscreen { background:url(/static/images/player.png) 0 -252px no-repeat; }
+
+.img_player .scrubber {
+    float:left;
+    margin-left: 10px;
+    height:40px;
+    background:url(/static/images/player.png) 0 -80px repeat-x;
+}
+
+.img_player .scrubber a {
+    display:block;
+    position:relative;
+    top:50%;
+    left:0;
+    margin:-6px 0 0 0;
+    width:8px;
+    height:12px;
+    overflow:hidden;
+    text-decoration:none;
+    text-indent:-9999px;
+    outline:none;
+    background:url(/static/images/player.png) 0 -160px no-repeat;
+}
+
+.img_player .frame_count {
+    color: #999;
+    display: block;
+    padding: 13px 10px 0 0;
+    float: right;
+}
+
+.invisibleimageplayer {
+    display: none;
+}

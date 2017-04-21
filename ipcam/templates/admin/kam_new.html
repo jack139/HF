@@ -1,0 +1,67 @@
+$def with (name, str, order, serv_list)
+
+$var title: 添加新Kam相机
+$var css:
+$var js:
+$var name: $str $name
+    
+<h3>添加新Kam相机</h3>
+
+<form name="settings" method="post" action="/admin/kam_add">
+<input type="hidden" name="order" value="$order" />
+<p>相机串号：$order</p>
+<p>备注：<input id="shop_order" class="formtextinput3" type="text" name="shop_order" value=""/></p>
+
+<script>
+function getRadio(evt)
+{
+    var evt=evt || window.event;   
+    var e =evt.srcElement || evt.target;
+    var obj=document.getElementById("kam");
+    var obj2=document.getElementById("shop_order");
+          
+    if (e.value=="kam306"){
+      obj.readOnly=true;
+      obj.value="K306$order";
+      obj2.readOnly=false;
+      obj2.value="";
+    }
+    else if (e.value=="kam307"){
+      obj.readOnly=true;
+      obj.value="K307$order";
+      obj2.readOnly=false;
+      obj2.value="";
+    }
+    else if (e.value=="kam4a"){
+      obj.readOnly=true;
+      obj.value="$order";
+      obj2.readOnly=true;
+      obj2.value="kam4a";      
+    }
+    else{
+      obj.readOnly=false;
+      obj.value="";
+      obj2.readOnly=false;
+      obj2.value="";
+    }
+
+}
+</script>
+
+<p>相机类型：
+    <input type="radio" name="cam_type" value="kam305" onclick="getRadio()" checked="checked" /> 305 (标清)
+    <input type="radio" name="cam_type" value="kam306" onclick="getRadio()" /> 306 (普顺达高清)
+    <input type="radio" name="cam_type" value="kam307" onclick="getRadio()" /> 307 (海康高清)
+    <input type="radio" name="cam_type" value="kam4a" onclick="getRadio()" /> 安卓手机App
+</p>
+<p>硬件串号：<input id="kam" class="formtextinput3" type="text" name="kam" value=""/></p>
+<p>文件服务器：<select name="file_serv">
+  $for i in serv_list:
+    <option value ="$i">$i</option>
+  </select></p>
+<p>当前状态：<input type="radio" name="state" value="0" checked="checked" /> 锁定
+    <input type="radio" name="state" value="1" /> 可用</p>
+<p> </p>
+<p><input class="formbutton" type="submit" name="button" id="button" value="保存" /><p>
+
+</form>

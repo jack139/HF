@@ -1,0 +1,22 @@
+/*全站级css，轻易不可修改，修改后需要全面测试*/
+* {margin:0;padding:0;}
+html {width:100%;height:100%;font-size:12px;font-family:Arial, Helvetica, sans-serif; -webkit-text-size-adjust: none;	background:#ffffff;}
+.left {float:left;}
+.right {float:right;}
+.clear {clear:both;}
+.paddingleft5 {padding-left:5px;}
+.paddingleft10 {padding-left:10px;}
+.marginleft10 {margin-left:10px;}
+.marginright10 {margin-right:10px;}
+.margintop10 {margin-top:10px;}
+.inputwidth {width:196px; font-size:12px;}
+.selectwidth {width:150px; font-size:12px;}
+.mousepointer {cursor:pointer;}
+.pluginLink {color: #FFFFFF;font-size:16px;text-decoration:underline;cursor:pointer;}
+.pluginLinkSel {color: #0FFFFF;font-size:16px;text-decoration:underline;cursor:pointer;}
+.widthpercent100 {width:100%;}
+.displaynone {display:none;}
+.plugin0 {height:0px;margin:25px 0 0 10px;}
+.fontnormal {font-size:12px;font-family:Arial, Helvetica, sans-serif;-webkit-text-size-adjust:none;}
+.bordercollapse {border-collapse:collapse;}
+.textalignright {text-align:right;}

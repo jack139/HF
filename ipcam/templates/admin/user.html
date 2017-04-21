@@ -1,0 +1,14 @@
+$def with (name, str, users)
+
+$var title: 用户管理
+$var css:
+$var js:
+$var name: $str $name
+
+<h3>用户管理</h3>
+
+<p><a class="act" href="/admin/user_add">添加新用户</a></p>
+
+$for u in users:
+  <p><a href="/admin/user_setting?uid=$u[1]">$u[0]</a></p>
+

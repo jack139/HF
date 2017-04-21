@@ -1,0 +1,37 @@
+$def with (name, str, settings)
+
+$var title: Kam相机管理
+$var css:
+$var js:
+$var name: $str $name
+    
+<h3>Kam相机管理</h3>
+
+<form name="settings" method="post" action="/admin/kam_setting">
+<input type="hidden" name="kid" value="$settings[0]" />  
+<p>相机串号：$settings[1]</p>
+<p>备注：$settings[2]</p>
+<p>硬件串号：$settings[3]</p>
+<p>文件服务器：$settings[4]</p>
+<p>当前状态：
+  $if settings[6]==1: 
+    可用
+    $if settings[7]==1: 
+      ，未使用
+    $else: 
+      ，已在使用
+  $else:
+    <input type="radio" name="state" value="0" 
+      $if settings[6]==0: checked="checked"
+    /> 锁定
+    <input type="radio" name="state" value="1"
+      $if settings[6]==1: checked="checked"
+    /> 可用</p>
+<p>最近握手：$settings[5]</p>
+<p> </p>
+<p>
+  $if settings[6]==0:
+    <input class="formbutton" type="submit" name="button" id="button" value="保存" />
+  <input class="formbutton" type="button" name="button" id="button" value="返回" onclick="javascript:history.go(-1);"/>
+</p>
+</form>

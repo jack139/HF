@@ -1,0 +1,148 @@
+$def with (name, str, cam_info)
+
+$var title: 查看报警记录
+$var css:
+$var js:
+$var name: $str $name
+$var load:
+
+<h3>查看报警记录</h3>
+
+<b>报警记录数据</b>
+
+<table>
+  <tr>
+    <td class="dotbt">相机</td>
+    <td class="dotbt">报警记录</td>
+    <td class="dotbt">开始时间</td>
+    <td class="dotbt">结束时间</td>
+  </tr>
+
+$for i in cam_info:
+  <tr>
+    <td class="dotb">$i[0]</td>
+    <td class="dotb">$i[1] 条</td>
+    <td class="dotb">$i[2]</td>
+    <td class="dotb">$i[3]</td>
+  </tr>
+</table>
+<br>
+
+<form name="alert" method="post" action="/alert_log">
+  <p>选择相机：
+  <select name="camid">
+  $for i in cam_info:
+    $if i[1]>0:
+      <option value ="$i[4]">$i[0]</option>
+  </select></p>
+
+<script>
+function enableItem(id, val)
+{
+  obj=document.getElementById(id);
+  obj.disabled=val;
+}
+function disabledDate(val)
+{
+  enableItem("year_s", val);
+  enableItem("mon_s", val);
+  enableItem("day_s", val);
+  enableItem("hh_s", val);
+  enableItem("mm_s", val); 
+
+  enableItem("year_e", val);
+  enableItem("mon_e", val);
+  enableItem("day_e", val);
+  enableItem("hh_e", val);
+  enableItem("mm_e", val); 
+}
+function getRadio(evt)
+{
+    var evt=evt || window.event;   
+    var e =evt.srcElement || evt.target;
+          
+    if(e.value=="1") disabledDate(true);
+    else disabledDate(false);
+}
+</script>
+<input type="radio" id="today1" name="today" value="1" onclick="getRadio()" checked="checked"/> 查看最近的50条
+<input type="radio" id="today0" name="today" value="0" onclick="getRadio()" /> 查看指定时段的
+
+<p>开始时间：
+  <select name="year_s" id="year_s">
+    $for i in range(2013, 2015)
+      <option value ="$i">$i</option>
+  </select>年
+  <select name="mon_s" id="mon_s">
+    $for i in range(1, 13)
+      <option value ="$i">$i</option>
+  </select>月
+  <select name="day_s" id="day_s">
+    $for i in range(1, 32)
+      <option value ="$i">$i</option>
+  </select>日 
+  <select name="hh_s" id="hh_s">
+    $for i in range(0, 24)
+      <option value ="$i">$i</option>
+  </select>:
+  <select name="mm_s" id="mm_s">
+    $for i in range(0, 60)
+      <option value ="$i">$i</option>
+  </select>
+</p>
+
+<p>结束时间：
+  <select name="year_e" id="year_e">
+    $for i in range(2013, 2015)
+      <option value ="$i">$i</option>
+  </select>年
+  <select name="mon_e" id="mon_e">
+    $for i in range(1, 13)
+      <option value ="$i">$i</option>
+  </select>月
+  <select name="day_e" id="day_e">
+    $for i in range(1, 32)
+      <option value ="$i">$i</option>
+  </select>日 
+  <select name="hh_e" id="hh_e">
+    $for i in range(0, 24)
+      <option value ="$i">$i</option>
+  </select>:
+  <select name="mm_e" id="mm_e">
+    $for i in range(0, 60)
+      <option value ="$i">$i</option>
+  </select>
+</p>
+
+<script>  
+  dd=new Date();
+  obj=document.getElementById("year_s");
+  obj.value=dd.getFullYear();  
+  obj=document.getElementById("mon_s");
+  obj.value=dd.getMonth()+1;
+  obj=document.getElementById("day_s");
+  obj.value=dd.getDate();
+  obj=document.getElementById("hh_s");
+  obj.value=dd.getHours();
+  obj=document.getElementById("mm_s");
+  obj.value=dd.getMinutes();  
+  
+  obj=document.getElementById("year_e");
+  obj.value=dd.getFullYear();  
+  obj=document.getElementById("mon_e");
+  obj.value=dd.getMonth()+1;
+  obj=document.getElementById("day_e");
+  obj.value=dd.getDate();
+  obj=document.getElementById("hh_e");
+  obj.value=dd.getHours();
+  obj=document.getElementById("mm_e");
+  obj.value=dd.getMinutes();  
+
+  obj=document.getElementById("today1");
+  if (obj.checked==true) disabledDate(true);
+  else disabledDate(false);
+</script>
+
+<p><input class="formbutton" type="submit" name="button" id="button" value="查询报警记录" /><p>
+  
+</form>

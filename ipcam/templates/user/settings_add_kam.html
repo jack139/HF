@@ -1,0 +1,26 @@
+$def with (name, str, hasKam4a)
+
+$var title: 添加Kam相机
+$var css:
+$var js:
+$var name: $str $name
+$var load:
+
+<h2>相机添加向导：<b> 添加相机 </b> >>> 设置相机参数 >>> 完成</h2>    
+
+<h3>添加Kam相机</h3>
+
+<form name="settings" method="post" action="/settings_add_kam">
+  
+<p>Kam相机串号：<input class="formtextinput3" type="text" name="order" value=""/></p>
+<p> </p>
+<p><input class="formbutton" type="submit" name="button" id="button" value="进入相机添加向导" /><p>
+</form>
+
+<h3>添加Kam4A相机</h3>
+  <form name="settings" method="post" action="/settings_add_kam">
+    <input type="hidden" name="order" value="kam4a" />
+  <p>系统将自动生成Kam4A串号，添加完成后可以在“相机设置”里找到串号</p>
+  <p><input class="formbutton" type="submit" name="button" id="button" value="进入Kam4A添加向导" /><p>
+  </form>
+  

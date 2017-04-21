@@ -1,0 +1,32 @@
+##### End of variables to change
+
+LIVEMEDIA_DIR = liveMedia
+GROUPSOCK_DIR = groupsock
+USAGE_ENVIRONMENT_DIR = UsageEnvironment
+BASIC_USAGE_ENVIRONMENT_DIR = BasicUsageEnvironment
+
+STREAM = streaming
+REC = rec
+
+all:
+	cd $(LIVEMEDIA_DIR) ; $(MAKE)
+	cd $(GROUPSOCK_DIR) ; $(MAKE)
+	cd $(USAGE_ENVIRONMENT_DIR) ; $(MAKE)
+	cd $(BASIC_USAGE_ENVIRONMENT_DIR) ; $(MAKE)
+	cd $(STREAM) ; $(MAKE)
+	cd $(REC) ; $(MAKE)
+
+install:
+
+clean:
+	cd $(LIVEMEDIA_DIR) ; $(MAKE) clean
+	cd $(GROUPSOCK_DIR) ; $(MAKE) clean
+	cd $(USAGE_ENVIRONMENT_DIR) ; $(MAKE) clean
+	cd $(BASIC_USAGE_ENVIRONMENT_DIR) ; $(MAKE) clean
+	cd $(STREAM) ; $(MAKE) clean
+	cd $(REC) ; $(MAKE) clean
+
+distclean: clean
+	-rm -f $(LIVEMEDIA_DIR)/Makefile $(GROUPSOCK_DIR)/Makefile \
+	  $(USAGE_ENVIRONMENT_DIR)/Makefile $(BASIC_USAGE_ENVIRONMENT_DIR)/Makefile \
+	  $(STREAM)/Makefile Makefile $(REC)/Makefile Makefile

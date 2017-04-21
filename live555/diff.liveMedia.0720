@@ -1,0 +1,392 @@
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/ByteStreamMultiFileSource.cpp /home/Administrator/live555/liveMedia/ByteStreamMultiFileSource.cpp
+21,23d20
+< #include <stdlib.h>
+< #include <sys/types.h>
+< #include <dirent.h>
+26,80c23,31
+< char *snap_store_path;
+< 
+< //#define DEBUG
+< 
+< //
+< //// definations for get file name list
+< //
+< #define	TIME_SPAN 600
+< #define	FN_LIST_SIZE 100
+< #define	NAMLEN(dirent) strlen((dirent)->d_name)
+< 
+< /* compare function for	qsort()	*/
+< static int fn_cmp (const void *c1, const void *c2)
+< {
+< 	return strcmp (((struct	snap_fn	*)c1)->fn, ((struct snap_fn *)c2)->fn);
+< }
+< 
+< /* get filename	list */
+< static int fc(char *path, long	st_i, long et_i, struct	snap_fn	*list)
+< {
+< 	DIR *dp,*dp2;
+< 	struct dirent *ep, *ep2;
+< 	char tmp[100];
+< 	int total=0, st_d, et_d, this_d;
+< 	long this_i;
+< 
+< 	st_d = st_i/TIME_SPAN;
+< 	et_d = et_i/TIME_SPAN;
+<   
+< 	dp = opendir(path);
+< 	if (dp != NULL){
+< 		while ((ep = readdir(dp))){
+< 			if (ep->d_name[0]=='.' && 
+< 				(NAMLEN(ep)==1 ||(ep->d_name[1]=='.' &&	NAMLEN(ep)==2))) continue;
+< 			this_d=atoi(ep->d_name);
+< 			if (this_d<st_d	|| this_d>et_d)	continue;
+< 			sprintf(tmp, "%s/%s", path, ep->d_name);
+< 			dp2 = opendir (tmp);
+< 			if (dp2	!= NULL){
+< 				while ((ep2 = readdir(dp2))){
+< 					if (total==FN_LIST_SIZE) break;
+< 					if (ep2->d_name[0]=='.'	&& 
+< 						(NAMLEN(ep2)==1	||
+< 							(ep2->d_name[1]=='.' &&	NAMLEN(ep2)==2))) continue;
+< 					this_i=atol(ep2->d_name);
+< 					if (this_i<st_i	|| this_i>et_i)	continue;
+< 					strcpy(list[total].fn, ep2->d_name);
+< 					strcpy(list[total].dn, ep->d_name);
+< 					/* printf("%u: %s/%s\n", childs, list[total].dn, list[total].fn); */
+< 					total++;
+< 				}
+< 				(void) closedir	(dp2);
+< 			}
+< 		}
+< 		(void) closedir	(dp);
+---
+> ByteStreamMultiFileSource
+> ::ByteStreamMultiFileSource(UsageEnvironment& env, char const** fileNameArray,
+> 			    unsigned preferredFrameSize, unsigned playTimePerFrame)
+>   : FramedSource(env),
+>     fPreferredFrameSize(preferredFrameSize), fPlayTimePerFrame(playTimePerFrame),
+>     fCurrentlyReadSourceNumber(0), fHaveStartedNewFile(False) {
+>     // Begin by counting the number of sources:
+>     for (fNumSources = 0; ; ++fNumSources) {
+>       if (fileNameArray[fNumSources] == NULL) break;
+83,107d33
+<   return total;
+< }
+< 
+< int ByteStreamMultiFileSource::getNewFileList()
+< {
+<     long st_i, et_i;
+<     char tmp_str[50], cam_path[200];
+< 
+<     
+<     if (fn_list==NULL) return -1;
+< 
+< #ifdef DEBUG
+<     fprintf(stderr, "getNewFileList(): lastTick = %ld\n", lastTick);
+< #endif
+< 
+<     /* find filenames */
+<     st_i = lastTick;
+<     et_i = st_i+300; /* 5 mins */
+<     sprintf(cam_path, "%s/%s", snap_store_path, camid);	
+<     fNumSources=fc(cam_path, st_i, et_i, fn_list);
+<     printf("total %u clips: \n", fNumSources);
+<     if (fNumSources==0) return -1;
+<     	
+<     qsort(fn_list, fNumSources, sizeof(struct snap_fn), fn_cmp);
+< 
+110c36
+<     if (fFileNameArray == NULL) return -1;
+---
+>     if (fFileNameArray == NULL) return;
+113,114c39
+<       sprintf(tmp_str, "%s/%s", fn_list[i].dn, fn_list[i].fn);
+<       fFileNameArray[i] = strDup(tmp_str);
+---
+>       fFileNameArray[i] = strDup(fileNameArray[i]);
+116,117d40
+<     lastTick=atol(fn_list[fNumSources-1].fn)+1;
+<     //fprintf(stderr, "getNewFileList(): new lastTick = %ld\n", lastTick);
+122c45
+<     if (fSourceArray == NULL) return -1;
+---
+>     if (fSourceArray == NULL) return;
+126,127d48
+<     
+<     return 0;
+130,178c51
+< ByteStreamMultiFileSource
+< ::ByteStreamMultiFileSource(UsageEnvironment& env, char const *fileName, 
+< 			    unsigned preferredFrameSize, unsigned playTimePerFrame)
+<   : FramedSource(env),
+<     fPreferredFrameSize(preferredFrameSize), fPlayTimePerFrame(playTimePerFrame),
+<     fCurrentlyReadSourceNumber(0), fHaveStartedNewFile(False) 
+< {
+< 	char *p, *lt;
+< 	fSourceArray=NULL;
+< 	fFileNameArray=NULL;
+< 	fNumSources=0;
+< 
+< 	do{
+< 		/* get camid */
+< 		camid=strDup(fileName);
+< 		
+< 		p=camid;
+< 		for (; *p&&*p!='_'; p++);
+< 		if (!*p){
+< 			printf("ByteStreamMultiFileSource(): parse <camid> fail.\n");
+< 			break;
+< 		}
+< 		*p='\0';
+< 
+< 		/* get start tick */
+< 		lt=++p;
+< 		for (; *p&&*p!='_'; p++);
+< 		if (!*p){
+< 			printf("ByteStreamMultiFileSource(): parse <start tick> fail.\n");
+< 			break;
+< 		}
+< 		*p='\0';
+< 	
+< 		lastTick=atol(lt);
+< 		
+< 		/* get play speed */
+< 		p++;
+< 		fSpeed=atoi(p);
+< #ifdef DEBUG		
+< 		printf("ByteStreamMultiFileSource(): %s %ld %u.\n", camid, lastTick, fSpeed);
+< #endif
+< 	} while(0);
+< 	
+< 	fn_list=new struct snap_fn[FN_LIST_SIZE];
+< 	if (fn_list!=NULL) getNewFileList();
+< }
+< 
+< void ByteStreamMultiFileSource::myFree()
+< {
+---
+> ByteStreamMultiFileSource::~ByteStreamMultiFileSource() {
+180,181d52
+<   
+< 	if (fSourceArray!=NULL){
+186,187d56
+< 		fSourceArray=NULL;
+< 	}
+189d57
+< 	if (fFileNameArray!=NULL){
+194,201d61
+< 		fFileNameArray=NULL;
+< 	}
+< }
+< 
+< ByteStreamMultiFileSource::~ByteStreamMultiFileSource() {
+< 	myFree();
+< 	delete[] fn_list;
+< 	delete[] (char*)(camid);
+205c65
+< ::createNew(UsageEnvironment& env, char const *fileName,
+---
+> ::createNew(UsageEnvironment& env, char const** fileNameArray,
+208c68,69
+<     = new ByteStreamMultiFileSource(env, fileName, preferredFrameSize, playTimePerFrame);
+---
+>     = new ByteStreamMultiFileSource(env, fileNameArray,
+> 				    preferredFrameSize, playTimePerFrame);
+214,215d74
+<   char fileName[200];
+<   
+218,222c77
+<     if (fCurrentlyReadSourceNumber >= fNumSources){
+<     	myFree();
+<     	if (getNewFileList()==-1) break;
+<     	fCurrentlyReadSourceNumber=0;
+<     }
+---
+>     if (fCurrentlyReadSourceNumber >= fNumSources) break;
+229d83
+<       sprintf(fileName, "%s/%s/%s", snap_store_path, camid, fFileNameArray[fCurrentlyReadSourceNumber]);
+231c85
+< 		       fileName,
+---
+> 		       fFileNameArray[fCurrentlyReadSourceNumber],
+235,237d88
+< #ifdef DEBUG
+<       printf("new file source: %s\n", fileName);
+< #endif
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/FramedSource.cpp /home/Administrator/live555/liveMedia/FramedSource.cpp
+32d31
+<   fSpeed = 1; // will be set value by ByteStreamMultiFileSource instance
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/H264or5VideoStreamFramer.cpp /home/Administrator/live555/liveMedia/H264or5VideoStreamFramer.cpp
+1038c1038
+<       double nextFraction = nextPT.tv_usec/1000000.0 + 1/usingSource()->fFrameRate/usingSource()->inputSource()->fSpeed;
+---
+>       double nextFraction = nextPT.tv_usec/1000000.0 + 1/usingSource()->fFrameRate;
+1042,1045d1041
+< #if 0
+<       printf("in H264or5VideoStreamParser::parse(): %lu %lu %.1f %u\n", 
+<       	nextPT.tv_sec, nextPT.tv_usec, usingSource()->fFrameRate, usingSource()->inputSource()->fSpeed);
+< #endif
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/H264VideoFileServerMediaSubsession.cpp /home/Administrator/live555/liveMedia/H264VideoFileServerMediaSubsession.cpp
+24,25c24
+< //#include "ByteStreamFileSource.hh"
+< #include "ByteStreamMultiFileSource.hh"
+---
+> #include "ByteStreamFileSource.hh"
+107,108c106
+<   //ByteStreamFileSource* fileSource = ByteStreamFileSource::createNew(envir(), fFileName);
+<   ByteStreamMultiFileSource* fileSource = ByteStreamMultiFileSource::createNew(envir(), fFileName);
+---
+>   ByteStreamFileSource* fileSource = ByteStreamFileSource::createNew(envir(), fFileName);
+110c108
+<   //fFileSize = fileSource->fileSize();
+---
+>   fFileSize = fileSource->fileSize();
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/include/ByteStreamMultiFileSource.hh /home/Administrator/live555/liveMedia/include/ByteStreamMultiFileSource.hh
+28,32d27
+< struct snap_fn{
+< 	char fn[20];
+< 	char dn[10];
+< };
+< 
+36c31
+<   createNew(UsageEnvironment& env, char const *fileName, 
+---
+>   createNew(UsageEnvironment& env, char const** fileNameArray,
+44c39
+<   ByteStreamMultiFileSource(UsageEnvironment& env, char const *fileName, 
+---
+>   ByteStreamMultiFileSource(UsageEnvironment& env, char const** fileNameArray,
+61,62d55
+<   int getNewFileList();
+<   void myFree();
+72,74d64
+<   long lastTick;
+<   struct snap_fn *fn_list;
+<   char *camid;
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/include/FramedSource.hh /home/Administrator/live555/liveMedia/include/FramedSource.hh
+67,69d66
+< public:
+<   unsigned fSpeed; // use for fast-forward
+<     
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/include/RTSPServer.hh /home/Administrator/live555/liveMedia/include/RTSPServer.hh
+217d216
+<     virtual void handleCmd_HEARTBEAT();
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/MediaSession.cpp /home/Administrator/live555/liveMedia/MediaSession.cpp
+823d822
+< /*    Do not use RTCP
+833c832
+< 					      NULL // we're a client ,
+---
+> 					      NULL /* we're a client */,
+840c839
+< */
+---
+> 
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/MPEGVideoStreamFramer.cpp /home/Administrator/live555/liveMedia/MPEGVideoStreamFramer.cpp
+166c166
+<       : (unsigned)((fPictureCount*1000000)/fFrameRate/inputSource()->fSpeed);
+---
+>       : (unsigned)((fPictureCount*1000000)/fFrameRate);
+171,175d170
+< 
+< #if 0
+<     printf("[%p] in continueReadProcessing: %lu %lu %u %.1f %u\n", 
+<     	this, fPresentationTime.tv_sec, fPresentationTime.tv_usec, fDurationInMicroseconds, fFrameRate, inputSource()->fSpeed);fflush(stdout);
+< #endif
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/MultiFramedRTPSource.cpp /home/Administrator/live555/liveMedia/MultiFramedRTPSource.cpp
+285,286c285,286
+<     // Check for (& ignore) any RTP header extension, except payload_type=0x70
+<     if (rtpHdr&0x10000000 && rtpPayloadType!=0x70) {
+---
+>     // Check for (& ignore) any RTP header extension
+>     if (rtpHdr&0x10000000) {
+341c341
+< #define MAX_PACKET_SIZE 50000
+---
+> #define MAX_PACKET_SIZE 20000
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/OnDemandServerMediaSubsession.cpp /home/Administrator/live555/liveMedia/OnDemandServerMediaSubsession.cpp
+401d400
+<     "a=Media_header:MEDIAINFO=494D4B48010100000400010000000000000000000000000000000000000000000000000000000000;\r\n"
+470c469
+<   if (fRTCPInstance == NULL && fRTPSink != NULL && !dests->isTCP) {  // do not use RTCP on TCP
+---
+>   if (fRTCPInstance == NULL && fRTPSink != NULL) {
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/RTPInterface.cpp /home/Administrator/live555/liveMedia/RTPInterface.cpp
+306,308d305
+<     u_int8_t payload_type = packet[1]&0x7F;
+<     u_int8_t nal_unit_type = packet[12]&0x1F;
+<     
+315,320d311
+<     // process plain/DATA packet, use the same subsession and the same channel
+<     if (payload_type==96 && nal_unit_type==0){
+<     	packet[1]=0xF0; // payload_type=112 with marker
+<     	packet[0]|=0x10; // set Extension_bit=True
+<     }
+<     ///////////////////////////////////
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/RTSPClient.cpp /home/Administrator/live555/liveMedia/RTSPClient.cpp
+346d345
+< /*
+360,364d358
+< */
+<   // simulate to hicomm client
+<   char const* const libName = "NKPlayer-1.00.00.081112";
+<   char* userAgentName = new char[strlen(libName)];
+<   sprintf(userAgentName, "%s", libName);
+552,554c546
+<     //buf[0] = '\0';
+<     // NOW we need it!!! add 'Rate-Control'
+<     snprintf(buf, sizeof buf, "Rate-Control:yes\r\nScale:1.000\r\n");
+---
+>     buf[0] = '\0';
+588,590c580,581
+<       //Locale l("C", Numeric);
+<       //sprintf(buf, "Range: npt=%.3f-%.3f\r\n", start, end);
+<       buf[0] = '\0';
+---
+>       Locale l("C", Numeric);
+>       sprintf(buf, "Range: npt=%.3f-%.3f\r\n", start, end);
+643,647d633
+<       if (strcmp(subsession.codecName(), "DATA") == 0) {
+<       	// for plain/DATA packet(payload_type=0x70), set channel_id=0x04;
+<         rtpNumber = 4;
+<         rtcpNumber = 5;
+<       } else {
+650d635
+<       }
+888,892d872
+<       if (strcmp(auth.username(), "__base64__")==0){  // base64 code has been ready in password field
+< 	      unsigned const authBufSize = strlen(authFmt) + strlen(auth.password()) + 1;
+< 	      authenticatorStr = new char[authBufSize];
+< 	      sprintf(authenticatorStr, authFmt, auth.password());
+<       } else {
+903d882
+<     }
+1256d1234
+< /*
+1264,1265d1241
+< */
+<   fCurrentAuthenticator.setRealmAndNonce(realm, NULL); // Basic authentication
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/RTSPCommon.cpp /home/Administrator/live555/liveMedia/RTSPCommon.cpp
+191c191
+< 	if (c == '\r' || c == '\n' || c== ';') { // ';' for case: Session: xxxxx;timeout=60
+---
+> 	if (c == '\r' || c == '\n') {
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile liveMedia/RTSPServer.cpp /home/Administrator/live555/liveMedia/RTSPServer.cpp
+296c296
+<   return "OPTIONS, DESCRIBE, SETUP, TEARDOWN, PLAY, PAUSE, GET_PARAMETER, SET_PARAMETER, HEARTBEAT";
+---
+>   return "OPTIONS, DESCRIBE, SETUP, TEARDOWN, PLAY, PAUSE, GET_PARAMETER, SET_PARAMETER";
+613,616d612
+< void RTSPServer::RTSPClientConnection::handleCmd_HEARTBEAT() {
+<   setRTSPResponse("200 OK");
+< }
+< 
+1037,1038d1032
+<       } else if (strcmp(cmdName, "HEARTBEAT") == 0) {
+< 	handleCmd_HEARTBEAT();
+1106,1108c1100
+<       fprintf(stderr, "!!! DO NOT start stream before got a PLAY command !!!\n");
+<       // Do not let stream start before play!!!
+<       //clientSession->handleCmd_withinSession(this, "PLAY", urlPreSuffix, urlSuffix, (char const*)fRequestBuffer);
+---
+>       clientSession->handleCmd_withinSession(this, "PLAY", urlPreSuffix, urlSuffix, (char const*)fRequestBuffer);

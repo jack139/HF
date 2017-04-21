@@ -1,0 +1,146 @@
+$def with (name, str, cam_info)
+
+$var title: 录像回放
+$var name: $str $name
+
+$var css: /static/css/base.css /static/css/playback.css
+$var js: /static/js/jquery-1.7.1.min.js /static/js/timebar.js /static/My97DatePicker/WdatePicker.js /static/js/playback.js?v=3 /static/js/common.js?v=3 /static/js/Plugin.js?v=2
+$var load: InitInit();
+
+<script type="text/javascript">
+function InitInit(){
+        InitPlayback();
+}
+</script>
+
+<h3>录像回放</h3>
+
+<div id="content" class="content">
+    <div class="contentleft">
+	    <div class="statusbar">
+		    <span class="curstatus">
+				<label id="laCurrentSpeed" name="laCurrentSpeed">1 倍速</label>
+				&nbsp;
+				<label id="nowStatues" class="nowStatues">停止回放</label>
+			</span>
+		    <span class="paddingleft10 left labelhidden"><label id="laDeviceName"></label></span>
+		    <span class="paddingleft10 left"><label id="laFishOSD"></label></span>		    				
+		</div>
+        <div id="main_plugin" class="videoplugin"></div>
+        <div class="toolbar">
+	        <div class="toolleft">
+			<div onclick="PlayBackSlowly()" class="buttonmouseout">
+				<span id="SlowlyForward" class="slowlyforwarddisable"></span>
+        		</div>
+			<div onclick="StartPlayBack()" class="buttonmouseout">
+				<span id="play" class="play"></span>
+        		</div>
+			<div onclick="PlayBackFast()" class="buttonmouseout">
+				<span id="FastForward" class="fastforwarddisable"></span>
+			</div>
+			<div onclick="StopPlayBack2()" class="buttonmouseout">
+				<span id="stop" class="stopdisable"></span>
+        		</div>
+	        </div>
+	        <div class="toolright">	            
+			<div id="dvTimebarCtrl" class="displaynone timebarctl">
+			    <span id="timeNarrow" class="timenarrowout" onclick="narrowTimebar()" onmouseover="this.className = 'timenarrowover' " onmouseout="this.className = 'timenarrowout' "></span>
+			    <span id="timeExpand" class="timeexpandout" onclick="expandTimebar()" onmouseover="this.className = 'timeexpandover' " onmouseout="this.className = 'timeexpandout' "></span>
+			</div>
+			<div onclick="CapturePicture()" class="buttonmouseout">
+		            <span id="capture" class="capturedisable" title="抓图"></span>
+		        </div>
+	        </div>  	  
+	    </div>
+	    <div id="playbackbar" class="timebar">
+	    <script type="text/javascript">
+	        if(navigator.appName == "Microsoft Internet Explorer")
+	        {
+		        document.write("<object classid='clsid:E7EF736D-B4E6-4A5A-BA94-732D71107808' codebase='' standby='Waiting...' id='timebar' name='timebar' align='center' width='704' height='60'><param name='activextype' value='3'></object>");
+	        }
+	        else
+	        {
+		        document.write("<canvas id='timebar' width='704' height='60'></canvas>")
+	        }
+        </script>
+	    </div>
+	    <div class="recordtypepart">
+                <img src="/static/images/playback/playbck_03.gif" width="9" height="9">&nbsp;<span><label id='RecordType1' name="RecordType1">录像</label></span>&nbsp;&nbsp;&nbsp;
+	    </div>  
+    </div>
+    <div class="contentright">         
+        <div id="div1" class="widthpercent100"></div>
+        <div class="searchtime" onclick="SearchRecordFile(2)">
+	        <span class="searchico">&nbsp;</span>
+            <label name="laSearch" class="mousepointer">查找</label>
+        </div>
+        <div class="subparamswhite">
+            <span class="firstspan"><label name="cam_0">第 1 路</label></span>
+            <span>
+		<select id="cam_0" class="selectwidth" onchange="changeCamid(0)">
+                    <option value="-1" name="cam_0_0">-</option>
+                $for l in cam_info:
+                    <option value="$l[1]" name="cam_0_$loop.index">$l[0]</option>
+                </select>
+            </span>
+        </div>	
+        <div class="subparamswhite">
+            <span class="firstspan"><label name="cam_1">第 2 路</label></span>
+            <span>
+		<select id="cam_1" class="selectwidth" onchange="changeCamid(1)">
+                    <option value="-1" name="cam_1_0">-</option>
+                $for l in cam_info:
+                    <option value="$l[1]" name="cam_1_$loop.index">$l[0]</option>
+                </select>
+            </span>
+        </div>	
+        <div class="subparamswhite">
+            <span class="firstspan"><label name="cam_2">第 3 路</label></span>
+            <span>
+		<select id="cam_2" class="selectwidth" onchange="changeCamid(2)">
+                    <option value="-1" name="cam_2_0">-</option>
+                $for l in cam_info:
+                    <option value="$l[1]" name="cam_2_$loop.index">$l[0]</option>
+                </select>
+            </span>
+        </div>	
+        <div class="subparamswhite">
+            <span class="firstspan"><label name="cam_3">第 4 路</label></span>
+            <span>
+		<select id="cam_3" class="selectwidth" onchange="changeCamid(3)">
+                    <option value="-1" name="cam_3_0">-</option>
+                $for l in cam_info:
+                    <option value="$l[1]" name="cam_3_$loop.index">$l[0]</option>
+                </select>
+            </span>
+        </div>	
+	<div id="divPlaybackTips" class="playbacktips">
+	    <span class="tipspic">&nbsp;</span>
+	    <span><label id="laPlaybackTips"></label></span>
+	</div>
+	<div class="localizer">
+	    <div class="left localizerleftbg"></div>
+	    <div class="left localizermidbg">
+	    <div class="paddingleft10 localizertitle"><label id="laPlaybackTimeLocalizer" name="laPlaybackTimeLocalizer">回放时间点</label></div>
+	          <input class="timeinput" onkeyup="if(!(Number(this.value) <= 23)) {this.value = this.value.replace(this.value,'00')}" maxlength="2" type="text" name="shi" value="00" id="time_shi" />
+	          <input class="timeinput" onkeyup="if(!(Number(this.value) <= 59)) {this.value = this.value.replace(this.value,'00')}" maxlength="2" type="text" name="fen"  value="00" id="time_fen" />
+	          <input class="timeinput" onkeyup="if(!(Number(this.value) <= 59)) {this.value = this.value.replace(this.value,'00')}" maxlength="2" type="text" name="miao"  value="00" id="time_miao" />
+	          <span id="dingshi" class="timegotobtn" onclick="GoTime()"></span>
+	    </div>
+	    <div class="left localizerrightbg"></div>
+	    <div class="clear"></div>
+	</div>
+    </div>
+    <div id="clear"></div>
+</div>
+<iframe id="frTimebarCtrl" class="displaynone timebarctlframe" src="javascript:false;" frameborder="0" scrolling="no"></iframe>
+
+<script type="text/javascript" for=PreviewActiveX event="GetSelectWndInfo(SelectWndInfo)">
+	GetSelectWndInfo(SelectWndInfo);
+</script>
+<script type="text/javascript" for=PreviewActiveX event="PluginEventHandler(iEventType, iParam1, iParam2)">
+	PluginEventHandler(iEventType, iParam1, iParam2);
+</script>
+<script type="text/javascript" for=timebar event="GetMovePlaybackTime(szGetTime)">
+	timeBarMouseUp(szGetTime);
+</script>

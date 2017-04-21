@@ -1,0 +1,37 @@
+#!/bin/bash
+
+python set_kam.py 192.168.100.5 admin 12345 set_stream
+python set_kam.py 192.168.100.6 admin 12345 set_stream
+python set_kam.py 192.168.100.7 admin pcadmin set_stream
+python set_kam.py 192.168.100.8 admin pcadmin set_stream
+python set_kam.py 192.168.100.9 admin pcadmin set_stream
+python set_kam.py 192.168.100.10 admin pcadmin set_stream
+python set_kam.py 192.168.100.11 admin pcadmin set_stream
+python set_kam.py 192.168.100.12 admin pcadmin set_stream
+python set_kam.py 192.168.100.13 admin pcadmin set_stream
+python set_kam.py 192.168.100.14 admin pcadmin set_stream
+python set_kam.py 192.168.100.15 admin pcadmin set_stream
+python set_kam.py 192.168.100.16 admin pcadmin set_stream
+python set_kam.py 192.168.100.17 admin pcadmin set_stream
+python set_kam.py 192.168.100.18 admin pcadmin set_stream
+python set_kam.py 192.168.100.19 admin pcadmin set_stream
+python set_kam.py 192.168.100.20 admin pcadmin set_stream
+python set_kam.py 192.168.100.21 admin pcadmin set_stream
+python set_kam.py 192.168.100.22 admin pcadmin set_stream
+python set_kam.py 192.168.100.23 admin pcadmin set_stream
+python set_kam.py 192.168.100.24 admin pcadmin set_stream
+python set_kam.py 192.168.100.25 admin pcadmin set_stream
+python set_kam.py 192.168.100.26 admin pcadmin set_stream
+python set_kam.py 192.168.100.27 admin pcadmin set_stream
+python set_kam.py 192.168.100.28 admin pcadmin set_stream
+python set_kam.py 192.168.100.29 admin pcadmin set_stream
+python set_kam.py 192.168.100.30 admin pcadmin set_stream
+python set_kam.py 192.168.100.31 admin pcadmin set_stream
+python set_kam.py 192.168.100.32 admin pcadmin set_stream
+python set_kam.py 192.168.100.33 admin pcadmin set_stream
+python set_kam.py 192.168.100.34 admin pcadmin set_stream
+python set_kam.py 192.168.100.35 admin pcadmin set_stream
+python set_kam.py 192.168.100.36 admin pcadmin set_stream
+python set_kam.py 192.168.100.37 admin pcadmin set_stream
+python set_kam.py 192.168.100.38 admin 12345 set_stream
+python set_kam.py 192.168.100.39 admin pcadmin set_stream

@@ -1,0 +1,18 @@
+$def with (hash1)
+
+$var title: 会员注册
+$var css:
+$var js:
+    
+<h3>会员注册</h3>
+
+<form name="settings" method="post" action="/sign_up">
+<input id="signature" type="hidden" name="hash1" value="$hash1"/>
+<p>请输入您的email地址：<input class="formtextinput3" type="text" name="email" value=""/>
+（请输入可用的信箱，稍后系统将进行邮件确认）</p>
+<p>输入验证码：<img src="/static/tmp/ts_$(hash1).jpg"/>
+    <input class="formtextinput3" type="text" maxlength="6" name="magic" value=""/></p>
+<p><input class="formbutton" type="submit" name="button" id="button" value="确定" /><p>
+
+</form>
+

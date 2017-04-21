@@ -1,0 +1,14 @@
+$def with (info, goto="javascript:history.go(-1);", text2="返回", guide='0')
+
+$var title: 信息提示
+$var css:
+$var js:
+$var name: 
+$var load:
+
+$if guide=='1':
+  <h2>相机添加向导：添加相机 >>> 设置相机参数 >>> <b> 完成 </b> </h2> 
+
+<h3>$info</h3>
+
+<p><a class="rdact" href="$goto">$text2</a></p>

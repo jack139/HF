@@ -1,0 +1,72 @@
+$def with (name, str, cam_info)
+
+$var title: 下载录像
+$var css:
+$var js:
+$var name: $str $name
+$var load:
+
+<h3>下载录像</h3>
+
+<p>请先选择相机和下载录像的开始时间。因为录像文件比较大，每次只能下载2分钟的录像。</p>
+
+<form name="alert" method="post" action="/download">
+  <p>选择相机：
+  <select name="camid">
+  $for i in cam_info:
+      <option value ="$i[1]">$i[0]</option>
+  </select></p>
+
+<p>开始时间：
+  <select name="year_s" id="year_s">
+    $for i in range(2013, 2015)
+      <option value ="$i">$i</option>
+  </select>年
+  <select name="mon_s" id="mon_s">
+    $for i in range(1, 13)
+      <option value ="$i">$i</option>
+  </select>月
+  <select name="day_s" id="day_s">
+    $for i in range(1, 32)
+      <option value ="$i">$i</option>
+  </select>日 
+  <select name="hh_s" id="hh_s">
+    $for i in range(0, 24)
+      <option value ="$i">$i</option>
+  </select>:
+  <select name="mm_s" id="mm_s">
+    $for i in range(0, 60)
+      <option value ="$i">$i</option>
+  </select>
+</p>
+
+
+<script>  
+  dd=new Date();
+  obj=document.getElementById("year_s");
+  obj.value=dd.getFullYear();  
+  obj=document.getElementById("mon_s");
+  obj.value=dd.getMonth()+1;
+  obj=document.getElementById("day_s");
+  obj.value=dd.getDate();
+  obj=document.getElementById("hh_s");
+  obj.value=dd.getHours();
+  obj=document.getElementById("mm_s");
+  obj.value=dd.getMinutes();  
+  
+  obj=document.getElementById("year_e");
+  obj.value=dd.getFullYear();  
+  obj=document.getElementById("mon_e");
+  obj.value=dd.getMonth()+1;
+  obj=document.getElementById("day_e");
+  obj.value=dd.getDate();
+  obj=document.getElementById("hh_e");
+  obj.value=dd.getHours();
+  obj=document.getElementById("mm_e");
+  obj.value=dd.getMinutes();  
+
+</script>
+
+<p><input class="formbutton" type="submit" name="button" id="button" value="下载录像" /><p>
+  
+</form>

@@ -1,0 +1,50 @@
+#!/bin/sh
+
+
+DB_PATH="/usr/local/data/db/"
+LOG_PATH="/usr/local/data/mongodb.log"
+
+
+start() {
+	mongod --fork --dbpath $DB_PATH --logpath $LOG_PATH --auth
+    	return 0 
+}
+
+stop() {
+	mongod --shutdown --dbpath $DB_PATH
+    	return 0
+}
+
+status() {
+	ps -ef|grep mongo
+    	return 0
+}
+
+repair() {
+	mongod --repair --dbpath=$DB_PATH
+}
+
+case "$1" in
+    start)
+	start
+	RETVAL=$?
+	;;
+    stop)
+	stop
+	RETVAL=$?
+	;;
+    status)
+	status
+	RETVAL=$?
+	;;
+    repair)
+	repair
+	RETVAL=$?
+	;;
+    *)
+	echo $"Usage: my_mongo {start|stop|status|repair}"
+	RETVAL=2
+	;;
+esac
+
+exit $RETVAL

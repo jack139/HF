@@ -1,0 +1,38 @@
+$def with (name, str, ipcams, tick)
+
+$var title: 相机设置
+$var css:
+$var js:
+$var name: $str $name
+$var load:
+    
+<h3>相机设置</h3>
+<p>选择要设置的相机 
+  <a class="rdact" href="/settings_add_kam">添加新相机</a>  
+</p>
+  <table >
+    $for l in ipcams:
+      <tr>
+        <td class="dotb"><a href="/settings?camid=$l[1]">$l[0]</a></td>
+        <td class="dotb">
+          $if tick-l[2]>600:
+            <b>网络中断，请检查！</b>
+          $else:
+            网络正常
+        </td>
+        <td class="dotb">
+          $if l[3]>0:
+            录像中 ...
+          $else:
+            停止录像
+        </td>
+        <td class="dotb">
+          $if l[5]>0:
+            移动侦测中 ...
+          $else:
+            停止侦测
+        </td>
+        <td class="dotb">$l[4]</td>
+      </tr>
+  </table>
+

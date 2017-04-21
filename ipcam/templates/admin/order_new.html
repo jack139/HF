@@ -1,0 +1,20 @@
+$def with (name, str, order)
+
+$var title: 添加充值单
+$var css:
+$var js:
+$var name: $str $name
+    
+<h3>添加充值单</h3>
+
+<form name="settings" method="post" action="/admin/order_add">
+<input type="hidden" name="order" value="$order" />
+<p>充值串号：$order</p>
+<p>淘宝订单编号：<input class="formtextinput3" type="text" name="shop_order" value=""/></p>
+<p>充值数量：<input class="formtextinput3" type="text" name="cash" value=""/>积分</p>
+<p>当前状态：<input type="radio" name="state" value="0" checked="checked" /> 锁定（已付款，未收货）
+    <input type="radio" name="state" value="1" /> 可用（已确认收货）</p>
+<p> </p>
+<p><input class="formbutton" type="submit" name="button" id="button" value="保存" /><p>
+
+</form>

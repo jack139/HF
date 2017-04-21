@@ -1,0 +1,294 @@
+$def with (name, str, cam, local_admin, tick, guide='0')
+
+$var title: 相机设置
+$var css:
+$var js:
+$var name: $str $name
+$var load:
+
+$if guide=='1':
+  <h2>相机添加向导：添加相机 >>> <b> 设置相机参数 </b> >>> 完成</h2> 
+
+<script language="javascript">
+
+function set_schedule2(id, val)
+{
+        var obj=document.getElementById(id);
+        if (val)
+        {
+                        obj.style.backgroundColor='#A9D0F5';
+        }       
+        else
+        {
+                        obj.style.backgroundColor='';
+        }       
+}
+
+function getRadio(evt)
+{
+    var evt=evt || window.event;   
+    var e =evt.srcElement || evt.target;
+    var i;
+          
+    if(e.value=="home"){
+        for(i=0; i<9; i++) { 
+          set_schedule2("schedule_sun_"+i,1);
+          set_schedule2("schedule_mon_"+i,1);
+          set_schedule2("schedule_tue_"+i,1);
+          set_schedule2("schedule_wed_"+i,1);
+          set_schedule2("schedule_thu_"+i,1);
+          set_schedule2("schedule_fri_"+i,1);
+          set_schedule2("schedule_sat_"+i,1);
+        }
+        for(i=9; i<17; i++) { 
+          set_schedule2("schedule_sun_"+i,1);
+          set_schedule2("schedule_mon_"+i,0);
+          set_schedule2("schedule_tue_"+i,0);
+          set_schedule2("schedule_wed_"+i,0);
+          set_schedule2("schedule_thu_"+i,0);
+          set_schedule2("schedule_fri_"+i,0);
+          set_schedule2("schedule_sat_"+i,1);
+        }
+        for(i=17; i<24; i++) { 
+          set_schedule2("schedule_sun_"+i,1);
+          set_schedule2("schedule_mon_"+i,1);
+          set_schedule2("schedule_tue_"+i,1);
+          set_schedule2("schedule_wed_"+i,1);
+          set_schedule2("schedule_thu_"+i,1);
+          set_schedule2("schedule_fri_"+i,1);
+          set_schedule2("schedule_sat_"+i,1);
+        }        
+    }
+    else if(e.value=="work"){
+        for(i=0; i<9; i++) { 
+          set_schedule2("schedule_sun_"+i,0);
+          set_schedule2("schedule_mon_"+i,0);
+          set_schedule2("schedule_tue_"+i,0);
+          set_schedule2("schedule_wed_"+i,0);
+          set_schedule2("schedule_thu_"+i,0);
+          set_schedule2("schedule_fri_"+i,0);
+          set_schedule2("schedule_sat_"+i,0);
+        }
+        for(i=9; i<17; i++) { 
+          set_schedule2("schedule_sun_"+i,0);
+          set_schedule2("schedule_mon_"+i,1);
+          set_schedule2("schedule_tue_"+i,1);
+          set_schedule2("schedule_wed_"+i,1);
+          set_schedule2("schedule_thu_"+i,1);
+          set_schedule2("schedule_fri_"+i,1);
+          set_schedule2("schedule_sat_"+i,0);
+        }
+        for(i=17; i<24; i++) { 
+          set_schedule2("schedule_sun_"+i,0);
+          set_schedule2("schedule_mon_"+i,0);
+          set_schedule2("schedule_tue_"+i,0);
+          set_schedule2("schedule_wed_"+i,0);
+          set_schedule2("schedule_thu_"+i,0);
+          set_schedule2("schedule_fri_"+i,0);
+          set_schedule2("schedule_sat_"+i,0);
+        }        
+    }
+    else if(e.value=="all"){
+      for(i=0; i<24; i++) set_schedule2("schedule_sun_"+i,1);
+      for(i=0; i<24; i++) set_schedule2("schedule_mon_"+i,1);
+      for(i=0; i<24; i++) set_schedule2("schedule_tue_"+i,1);
+      for(i=0; i<24; i++) set_schedule2("schedule_wed_"+i,1);
+      for(i=0; i<24; i++) set_schedule2("schedule_thu_"+i,1);
+      for(i=0; i<24; i++) set_schedule2("schedule_fri_"+i,1);
+      for(i=0; i<24; i++) set_schedule2("schedule_sat_"+i,1);
+    }
+    else{
+      for(i=0; i<24; i++) set_schedule2("schedule_sun_"+i,0);
+      for(i=0; i<24; i++) set_schedule2("schedule_mon_"+i,0);
+      for(i=0; i<24; i++) set_schedule2("schedule_tue_"+i,0);
+      for(i=0; i<24; i++) set_schedule2("schedule_wed_"+i,0);
+      for(i=0; i<24; i++) set_schedule2("schedule_thu_"+i,0);
+      for(i=0; i<24; i++) set_schedule2("schedule_fri_"+i,0);
+      for(i=0; i<24; i++) set_schedule2("schedule_sat_"+i,0);
+    }
+}
+</script>    
+
+
+<h3>相机设置</h3>
+
+<form name="settings" method="post" action="/settings">
+  <input type="hidden" name="cam_type" value="$cam[1]"/>
+  <input type="hidden" name="camid" value="$cam[0]"/>
+  <input type="hidden" name="guide" value="$guide"/>
+  <p>相机：<input class="formtextinput3" type="text" name="cam_name" value="$cam[2]"/></p>
+
+  <p>状态：
+      $if tick-cam[11]>3600: 
+        <b>超过1小时未连接，后台进程可能出现了故障！</b>
+      $else: 
+        后台进程正常
+      <a class="rdact" href="#" onclick="document.getElementById('status').style.display='block';">详细诊断</a>
+      <div style="display:none;" id="status">
+          <div>&nbsp;&nbsp;心跳: $("%.2f" % (tick-cam[11])) 秒前</div>
+          <div>&nbsp;&nbsp;重启: $cam[14]</div>
+          <div>&nbsp;&nbsp;握手: $cam[15]</div>
+      </div>
+  </p>
+
+    <p>类型：
+         $if cam[1][:4]=='kam3': 
+           $if cam[1]=='kam306' or cam[1]=='kam307': 
+             Kam高清相机
+           $else:
+             Kam相机
+           &nbsp;&nbsp;&nbsp;($cam[3])
+           $if local_admin:
+             <a class="rdact" href="http://$cam[17]" target="_blank">相机管理界面</a>
+         $elif cam[1]=='kam4a': 
+           Kam4A移动相机 &nbsp;&nbsp;&nbsp;($cam[3])
+         $else: 
+           普通相机 &nbsp;&nbsp;&nbsp;($cam[3])
+    </p>
+    
+    <p>IP地址：<input class="formtextinput3" type="text" name="cam_ip" value="$cam[17]"/></p>
+    <p>登录名：<input class="formtextinput3" type="text" name="cam_user" value="$cam[18]"/></p>
+    <p>登录口令：<input class="formtextinput3" type="password" name="cam_passwd" value="$cam[19]"/></p>
+
+    <p>f8kam同步串号：<input class="formtextinput3" type="text" name="sync_kam" value="$cam[21]"/></p>
+    
+    <p>现场影像：
+      <input type="radio" name="alive" value="1"  
+        $if cam[20]==1:
+          checked="checked"
+      /> 显示
+      <input type="radio" name="alive" value="0"  
+        $if cam[20]==0:
+          checked="checked"
+      /> 隐藏
+    </p>
+
+    <p>视频录像：<select id="delay" name="delay">
+      <option value="1" 
+          $if cam[5]==1: selected="selected"
+          >启动</option>
+      <option value="-1"
+        $if cam[5]==-1: selected="selected"
+        >停止</option>
+    </select> </p>
+
+    <input type="hidden" name="resolution" value="32"/>
+
+    <p>移动侦测设置：<select id="motion_detect" name="motion_detect" >
+      <option value="10"
+        $if cam[6]>0: selected="selected"
+        >启动</option>
+      <option value="0"
+        $if cam[6]==0: selected="selected"
+        >停止</option>
+    </select> </p>
+
+    <!-- p>邮件报警信箱：<input class="formtextinput3" type="text" name="alert_mail" value="$cam[4]"/></p -->
+    <p></p>
+
+    <p>录像时段：
+      <input type="radio" name="sc" value="clean" onclick="getRadio()" /> 全部清空
+      <input type="radio" name="sc" value="all" onclick="getRadio()" /> 所有时间
+      <input type="radio" name="sc" value="work" onclick="getRadio()" /> 工作时间
+      <input type="radio" name="sc" value="home" onclick="getRadio()" /> 休息时间
+    </p>
+
+    <script>
+    function set_schedule(id)
+    {
+        var obj=document.getElementById(id);
+        if (obj.style.backgroundColor=='')
+        {
+                        obj.style.backgroundColor='#A9D0F5';
+        }       
+        else
+        {
+                        obj.style.backgroundColor='';
+        }       
+    }
+    
+    function make_schedule_val(day)
+    {
+        id='schedule_'+day;
+        values="";
+        for(i=0;i<24;i++){
+                obj=document.getElementById(id+'_'+i);
+                if (obj.style.backgroundColor!='') values+=(i+" ");
+        }
+      obj=document.getElementById(day);
+        obj.value=values;
+        return 0;
+    }
+    
+    </script>
+
+    <input type="hidden" id="sun" name="sun" value="" />
+    <input type="hidden" id="mon" name="mon" value="" />
+    <input type="hidden" id="tue" name="tue" value="" />
+    <input type="hidden" id="wed" name="wed" value="" />
+    <input type="hidden" id="thu" name="thu" value="" />
+    <input type="hidden" id="fri" name="fri" value="" />
+    <input type="hidden" id="sat" name="sat" value="" />
+  
+    <table border="1"><tbody>
+      <tr>
+        <td width="40" class="dotb">星期日</td>
+        $for i in range(0,24):
+          <td width="15" onclick="set_schedule(id)" id="schedule_sun_$i" class="dotb"
+            $if i in cam[7]['Sun']: style="background-color:#A9D0F5;"
+          >$i</td>
+      </tr>    
+      <tr>
+        <td class="dotb">星期一</td>
+        $for i in range(0,24):
+          <td onclick="set_schedule(id)" id="schedule_mon_$i" class="dotb"
+            $if i in cam[7]['Mon']: style="background-color:#A9D0F5;"
+          >$i</td>
+      </tr>
+      <tr>
+        <td class="dotb">星期二</td>
+        $for i in range(0,24):
+          <td onclick="set_schedule(id)" id="schedule_tue_$i" class="dotb"
+            $if i in cam[7]['Tue']: style="background-color:#A9D0F5;"  
+          >$i</td>
+      </tr>
+      <tr>
+        <td class="dotb">星期三</td>
+        $for i in range(0,24):
+          <td onclick="set_schedule(id)" id="schedule_wed_$i" class="dotb"
+            $if i in cam[7]['Wed']: style="background-color:#A9D0F5;"  
+          >$i</td>
+      </tr>
+      <tr>
+        <td class="dotb">星期四</td>
+        $for i in range(0,24):
+          <td onclick="set_schedule(id)" id="schedule_thu_$i" class="dotb"
+            $if i in cam[7]['Thu']: style="background-color:#A9D0F5;"
+          >$i</td>
+      </tr>
+      <tr>
+        <td class="dotb">星期五</td>
+        $for i in range(0,24):
+          <td onclick="set_schedule(id)" id="schedule_fri_$i" class="dotb"
+            $if i in cam[7]['Fri']: style="background-color:#A9D0F5;"
+          >$i</td>
+      </tr>
+      <tr>
+        <td class="dotb">星期六</td>
+        $for i in range(0,24):
+          <td onclick="set_schedule(id)" id="schedule_sat_$i" class="dotb"
+            $if i in cam[7]['Sat']: style="background-color:#A9D0F5;"
+          >$i</td>
+      </tr>
+    </tbody></table>  
+
+    <p><input class="formbutton" type="submit" name="button" id="button" value="保存"
+        onclick="make_schedule_val('sun');make_schedule_val('mon');make_schedule_val('tue');make_schedule_val('wed');make_schedule_val('thu');make_schedule_val('fri');make_schedule_val('sat');"/><p>
+
+</form>
+
+<br/>
+
+  <p><a class="act" onclick="{if(confirm('与此相机有关的数据都将被删除！\n\n确定要删除吗？')){return true;}return false;}"
+    href="/settings_del?camid=$cam[0]">删除此相机</a></p>
+  <br/>

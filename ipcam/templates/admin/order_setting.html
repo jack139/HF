@@ -1,0 +1,39 @@
+$def with (name, str, settings)
+
+$var title: 用户管理
+$var css:
+$var js:
+$var name: $str $name
+    
+<h3>用户管理</h3>
+
+<form name="settings" method="post" action="/admin/order_setting">
+<input type="hidden" name="oid" value="$settings[0]" />
+<p>充值串号：$settings[1]</p>
+<p>淘宝订单编号：$settings[2]</p>
+<p>充值数量：$settings[4] 积分</p>
+<p>当前状态：
+  $if settings[3]==-1: 已充值
+  $elif settings[3]==1: 可用（已确认收货）
+  $else:
+    <input type="radio" name="state" value="0" 
+      $if settings[3]==0: checked="checked"
+    /> 锁定
+    <input type="radio" name="state" value="1"
+      $if settings[3]==1: checked="checked"
+    /> 可用</p>
+<p>
+  $if settings[3]==-1: 
+    充值时间：
+  $else:
+    有效期：
+  $settings[5]
+</p>
+<p> </p>
+<p>
+  $if settings[3]==0:
+    <input class="formbutton" type="submit" name="button" id="button" value="保存" />
+  <input class="formbutton" type="button" name="button" id="button" value="返回" onclick="javascript:history.go(-1);"/>
+</p>
+
+</form>

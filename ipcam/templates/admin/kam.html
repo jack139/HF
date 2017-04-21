@@ -1,0 +1,29 @@
+$def with (name, str, kams, cat)
+
+$var title: Kam相机管理
+$var css:
+$var js:
+$var name: $str $name
+
+<h3>Kam相机管理</h3>
+
+<p><a class="act" href="/admin/kam_add">添加新相机</a>
+  <a class="rdact" href="/admin/kam?cat=0">所有相机</a>
+  <a class="rdact" href="/admin/kam?cat=1">锁定的相机</a>
+  <a class="rdact" href="/admin/kam?cat=2">可用的相机（未使用）</a>
+  <a class="rdact" href="/admin/kam?cat=3">已使用的相机</a>
+</p>
+
+<p>
+  $if cat==0: 所有相机
+  $elif cat==1: 锁定的相机（已付款，未收货）
+  $elif cat==2: 可用的相机（已确认收货，未使用）
+  $elif cat==3: 已在使用的相机
+</p>
+
+$for u in kams:
+  <p>
+    <a href="/admin/kam_setting?kid=$u[1]">$u[0]</a> 设备串号：$u[2] ($u[3])
+    $if u[4]=="kam4a":
+      ------- Kam4A
+  </p>

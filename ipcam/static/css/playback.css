@@ -1,0 +1,538 @@
+body 
+{ 
+    width:100%;
+	height:100%;
+}
+#content
+{
+    width:1024px;
+    height:600px;
+}
+/*************************************************
+                 回放页面左侧模块 begin
+*************************************************/
+.contentleft
+{
+	float:left;
+	width:806px;
+}
+.statusbar
+{
+    height:25px;
+	color:#FFFFFF;
+	line-height:25px;
+	background:url(../images/fisheye/fisheyeOSDbg.png) repeat-x;
+}
+.labelhidden
+{
+	_width:150px;
+	max-width:150px;
+	word-break:keep-all;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+}
+.curstatus
+{
+    float:right;
+	width:160px;
+	text-align:center;
+}
+.videoplugin
+{
+    width:806px;
+    height:453px;
+}
+/*************************************************
+                 功能按钮模块 begin
+*************************************************/
+.toolbar
+{
+	height:43px;
+    background:url(../images/playback/toolbar.png) repeat-x;
+}
+.buttonmouseout
+{
+	float:left;
+	width:32px;
+	height:28px;
+	cursor:pointer;
+	margin:7px 0 0 2px;
+	text-align:center;	
+	background:url(../images/playback/buttonbg.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/buttonbg.png" ,sizingMethod="crop");		
+}
+.buttonmouseover
+{
+	float:left;
+	width:32px;
+	height:28px;
+	cursor:pointer;
+	margin:7px 0 0 2px;
+	text-align:center;	
+	background:url(../images/playback/buttonbgon.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/buttonbgon.png" ,sizingMethod="crop");		
+}
+.toolleft
+{
+    float:left;
+	margin-left:1px;
+}
+.capture
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/capture.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/capture.png" ,sizingMethod="crop");	
+}
+.capturedisable
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/captureDis.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/captureDis.png" ,sizingMethod="crop");	
+}
+.record
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/savefile.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/savefile.png" ,sizingMethod="crop");	
+}
+.recording
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/savingfile.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/savingfile.png" ,sizingMethod="crop");	
+}
+.recorddisable
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/savefileDis.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/savefileDis.png" ,sizingMethod="crop");	
+}
+.play
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/play.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/play.png" ,sizingMethod="crop");	
+}
+.pause
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/pause.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/pause.png" ,sizingMethod="crop");	
+}
+.stop
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/stop.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/stop.png" ,sizingMethod="crop");	
+}
+.stopdisable
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/stopDis.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/stopDis.png" ,sizingMethod="crop");	
+}
+.slowlyforward
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/slow.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/slow.png" ,sizingMethod="crop");	
+}
+.slowlyforwarddisable
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/slowDis.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/slowDis.png" ,sizingMethod="crop");	
+}
+.fastforward
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/fast.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/fast.png" ,sizingMethod="crop");	
+}
+.fastforwarddisable
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/fastDis.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/fastDis.png" ,sizingMethod="crop");	
+}
+.singleframe
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/singleframe.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/singleframe.png" ,sizingMethod="crop");	
+}
+.singleframedisable
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/singleframeDis.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/singleframeDis.png" ,sizingMethod="crop");	
+}
+.toolright
+{
+    float:right;
+	margin-right:3px;
+}
+.download
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/download.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/download.png" ,sizingMethod="crop");	
+}
+.picturedownload
+{
+    display:inline-block;
+	width:23px;
+	height:18px;
+	margin-top:4px;
+	background:url(../images/playback/picturedownload.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/picturedownload.png" ,sizingMethod="crop");	
+}
+.closesound
+{
+	float:left;
+	width:23px;
+	height:18px;
+	margin:4px 0 0 5px;
+	background:url(../images/playback/closesound.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/closesound.png" ,sizingMethod="crop");	
+}
+.opensound
+{
+	float:left;
+	width:23px;
+	height:18px;
+	margin:4px 0 0 5px;
+	background:url(../images/playback/opensound.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/opensound.png" ,sizingMethod="crop");	
+}
+.sounddisable
+{
+	float:left;
+	width:23px;
+	height:18px;
+	margin:4px 0 0 5px;
+	background:url(../images/playback/soundDis.png);
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/soundDis.png" ,sizingMethod="crop");	
+}
+.volumemouseout
+{
+	float:left;
+	width:115px;
+	height:28px;
+	cursor:pointer;
+	margin:7px 1px 0 1px;
+	text-align:center;	
+	background:url(../images/playback/volumebg.png);
+}
+.volumemouseover
+{
+	float:left;
+	width:115px;
+	height:28px;
+	cursor:pointer;
+	margin:7px 1px 0 1px;
+	text-align:center;	
+	background:url(../images/playback/volumebgon.png);	
+}
+.imageslider1 
+{ 
+    margin-top:12px;
+	padding:0; 
+	height:6px; 
+	width:73px; 
+	background-image:url("../images/playback/scrollvol.png"); 
+    background-repeat:no-repeat;
+}
+.imageBar2    
+{ 
+	margin-top:8px;
+	padding:0; 
+	height:13px; 
+	width:10px; 
+	background-image:url("../images/playback/speedvol.png"); 
+	background-repeat:no-repeat;
+}
+/*************************************************
+                 功能按钮模块 end
+*************************************************/
+/*************************************************
+                 时间条模块 begin
+*************************************************/
+.timebar
+{
+	height:60px; 
+	z-index:1;
+}
+.timebarctl
+{
+	width:36px;
+	height:15px;
+	margin:15px 5px 0 2px;
+	float:left;
+	background:url(../images/playback/buttonbg.png);
+	_background:none; 
+
+}
+.timebarctlframe
+{
+	width:36px;
+	height:15px;
+	position:absolute; 
+	bottom:60px; 
+	right:240px;
+	z-index:9;
+}
+.timenarrowover
+{
+	display:inline-block;
+	width:16px;
+	height:15px;
+	cursor:pointer;	
+	background:url(../images/playback/timeNarrow_sel.png);
+	_background-image:none; 
+	_background-color:#000000;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/timeNarrow_sel.png" ,sizingMethod="crop");	
+}
+.timenarrowout
+{
+	display:inline-block;
+	width:16px;
+	height:15px;
+	cursor:pointer;		
+	background:url(../images/playback/timeNarrow.png);
+	_background-image:none; 
+	_background-color:#000000;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/timeNarrow.png" ,sizingMethod="crop");	
+}
+.timeexpandover
+{
+	display:inline-block;
+	_margin-left:3px;
+	width:16px;
+	height:15px;
+	cursor:pointer;		
+	background:url(../images/playback/timeExpand_sel.png);
+	_background-image:none; 
+	_background-color:#000000;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/timeExpand_sel.png" ,sizingMethod="crop");	
+}
+.timeexpandout
+{
+	display:inline-block;
+	_margin-left:3px;
+	width:16px;
+	height:15px;
+	cursor:pointer;		
+	background:url(../images/playback/timeExpand.png);
+	_background-image:none; 
+	_background-color:#000000;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/timeExpand.png" ,sizingMethod="crop");	
+}
+/*************************************************
+                 时间条模块 end
+*************************************************/
+.recordtypepart
+{ 
+	height:18px;
+	text-align:right;
+	background:#dcdcdc; 
+}
+/*************************************************
+                 回放页面左侧模块 end
+*************************************************/
+/*************************************************
+                 回放页面右侧模块 begin
+*************************************************/
+.contentright
+{
+	position:relative;
+	float:right;
+	width:218px;
+	height:600px;
+}
+.searchtime
+{
+    width:216px;
+	height:26px;
+	text-align:center;
+	line-height:26px;
+	cursor:pointer;
+	background:url(../images/playback/search_btn.png) repeat-x;
+	border-left:1px solid #b7b7b7;
+	border-right:1px solid #b7b7b7;
+}
+.searchico
+{
+	width:25px;
+	display:inline-block;
+	background:url(../images/playback/search_icon.gif) no-repeat 50% 50%;
+}
+.playbacktips
+{
+    display:none; 
+	width:206px; 
+	height:50px; 
+	margin-top:10px; 
+	padding-left:10px; 
+	line-height:25px; 
+	color:green;
+}
+.tipspic
+{
+    display:inline-block; 
+	width:18px; height:25px; 
+	background:url(../images/config/alarm.png) no-repeat center center;
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/config/alarm.png" ,sizingMethod="crop");	
+}
+/*************************************************
+                 时间定位模块 begin
+*************************************************/
+.localizer
+{
+    position:absolute;
+	bottom:0px;
+	right:0px;
+	width:214px;
+	height:77px;
+}
+.localizerleftbg
+{
+    width:16px;
+	height:77px;
+	background:url(../images/playback/localizerLeft.png) no-repeat;
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/localizerLeft.png" ,sizingMethod="crop");	
+}
+.localizermidbg
+{
+    width:190px;
+	height:77px;
+	_height:75px;
+	background:url(../images/playback/localizerMid.png) repeat-x;
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/localizerMid.png" ,sizingMethod="crop");
+	_border:1px solid #9d9d9d;
+	_border-width:1px 0 1px 0;	
+}
+.localizerrightbg
+{
+    width:8px;
+	height:77px;
+	background:url(../images/playback/localizerRight.png) no-repeat;
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/playback/localizerRight.png" ,sizingMethod="crop");	
+}
+.localizertitle
+{
+	height:25px;
+	margin-top:7px;
+	line-height:25px;
+	background:#dedede;
+}
+.timeinput
+{
+    margin:12px 0 0 5px;
+	width:32px;
+	height:15px;
+}
+.timegotobtn
+{
+    margin:0 0 -5px 5px;
+	display:inline-block;
+	width:46px;
+	height:20px;
+	cursor:pointer;
+	background:url(../images/playback/goto.gif);
+}
+/*************************************************
+                 时间定位模块 end
+*************************************************/
+/*************************************************
+                 回放页面右侧模块 end
+*************************************************/
+
+.subparamswhite
+{
+	height:26px;
+	padding-left:10px;
+	margin-bottom:2px;
+	line-height:26px;
+    background:#ffffff;
+}
+.firstspan
+{
+    display:inline-block;
+    width:50px;    
+}

@@ -1,0 +1,29 @@
+$def with (name, str, alertids)
+
+$var title: 报警记录
+$var css:
+$var js:
+$var name: $str $name
+$var load:
+
+<h3>报警记录</h3>
+
+<p><a class="rdact" href="/alert_log">返回</a></p>
+<p>查询到最近的 $len(alertids) 条报警记录</p>
+<table >
+  <tr>
+
+  $for l in alertids:
+    <td class="dotb">
+    $if l[3]=='motion':
+      <div>【移动监测】 时间：$l[1]</div>
+      <div><a href="/alert_info?alertid=$l[0]">
+      	<img width="240" src="/snapshot?snapid=$l[0]"/></a></div>
+    $else:
+      <div><a href="/alert_info?alertid=$l[0]">【相机故障】 时间：$l[1]</a></div>
+    </td>
+    $if loop.index%4==0:
+      </tr><tr>
+
+  </tr>
+</table>

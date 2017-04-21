@@ -1,0 +1,13 @@
+@charset "utf-8";
+.dotb {
+	border: 1px dotted #BBBBBB;
+	text-align: center;
+	padding: 5px;
+}
+
+.dotbt {
+	border: 1px dotted #BBBBBB;
+	text-align: center;
+	padding: 5px;
+	background-color: #DDDDDD;
+}

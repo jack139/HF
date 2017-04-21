@@ -1,0 +1,26 @@
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile BasicUsageEnvironment/BasicTaskScheduler0.cpp /home/Administrator/live555/BasicUsageEnvironment/BasicTaskScheduler0.cpp
+20d19
+< #include <stdio.h>
+82d80
+<     fflush(stdout);
+diff -r -a -b -x '*.o' -x '*.a' -x Makefile BasicUsageEnvironment/BasicUsageEnvironment.cpp /home/Administrator/live555/BasicUsageEnvironment/BasicUsageEnvironment.cpp
+58c58
+<   fprintf(stdout, "%s", str);
+---
+>   fprintf(stderr, "%s", str);
+63c63
+<   fprintf(stdout, "%d", i);
+---
+>   fprintf(stderr, "%d", i);
+68c68
+<   fprintf(stdout, "%u", u);
+---
+>   fprintf(stderr, "%u", u);
+73c73
+<   fprintf(stdout, "%f", d);
+---
+>   fprintf(stderr, "%f", d);
+78c78
+<   fprintf(stdout, "%p", p);
+---
+>   fprintf(stderr, "%p", p);

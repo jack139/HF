@@ -1,0 +1,41 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+urls = (
+    '/',                'Login',
+    '/login',           'Login',
+    '/logout',          'Reset',
+    '/live2',           'LiveCam2',
+    '/search',          'Search',
+    '/settings_add_kam','SettingsAddKam',    
+    '/settings_del',    'SettingsDelCam',
+    '/settings_cams',   'SettingsCamsList',
+    '/settings',        'Settings',
+    '/settings_user',   'SettingsUser',
+    '/replay',          'Replay',
+    '/alert_log',       'AlertQuery',
+    '/alert_info',      'AlertInfo',
+    '/snapshot',        'Snapshot',
+    '/article',         'Aticle',
+    '/shadow_setting',  'ShadowSetting',
+    '/download',        'Download',
+
+    '/admin/order',        'AdminOrder',
+    '/admin/order_setting','AdminOrderSetting',
+    '/admin/order_add',    'AdminOrderAdd',
+    '/admin/order_del',    'AdminOrderDel',    
+    '/admin/kam',          'AdminKam',
+    '/admin/kam_setting',  'AdminKamSetting',
+    '/admin/kam_add',      'AdminKamAdd',    
+    '/admin/kam_del',      'AdminKamDel',
+    '/admin/user',         'AdminUser',
+    '/admin/user_setting', 'AdminUserSetting',
+    '/admin/user_add',     'AdminUserAdd',
+    '/admin/self_setting', 'AdminSelfSetting',
+    '/admin/sys_setting',  'AdminSysSetting',
+    '/admin/status',       'AdminStatus',
+    '/admin/data',         'AdminData',
+
+    '/kam/handshake',   'KamHandshake',    
+    '/kam/conf',        'KamConf',     
+)

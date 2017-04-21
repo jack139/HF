@@ -1,0 +1,55 @@
+$def with (name, str, info)
+
+$var title: 数据统计
+$var css:
+$var js:
+$var name: $str $name
+    
+<h3>综合数据统计</h3>
+
+<table>
+<tr><td class="dotbt">活动用户</td>   <td class="dotb">$info['active']</td></tr>
+<tr><td class="dotbt">停用用户</td>   <td class="dotb">$info['nonactive']</td></tr>
+<tr><td class="dotbt">系统用户</td>   <td class="dotb">$info['admin']</td></tr>
+<tr><td class="dotbt">session总数</td><td class="dotb">$info['sessions']</td></tr>
+<tr><td class="dotbt">相机总数</td>   <td class="dotb">$info['cams']</td></tr>
+<tr><td class="dotbt">Kam相机数</td>  <td class="dotb">$info['kams']</td></tr>
+<tr><td class="dotbt">照片总数</td>   <td class="dotb">$info['snaps']</td></tr>
+<tr><td class="dotbt">待监测照片</td> <td class="dotb">$info['dirty']</td></tr>
+<tr><td class="dotbt">待发送告警</td> <td class="dotb">$info['sent']</td></tr>
+</table>
+
+<h3>用户日志统计</h3>
+
+<table>
+<tr><td class="dotbt">登录页面</td>           <td class="dotb">$info['ulog01']</td></tr>
+<tr><td class="dotbt">登录失败</td>           <td class="dotb">$info['ulog02']</td></tr>
+<tr><td class="dotbt">现场影像</td>           <td class="dotb">$info['ulog03']</td></tr>
+<tr><td class="dotbt">错误的参数</td>         <td class="dotb">$info['ulog04']</td></tr>
+<tr><td class="dotbt">非法查看数据</td>       <td class="dotb">$info['ulog05']</td></tr>
+<tr><td class="dotbt">回放录像</td>           <td class="dotb">$info['ulog06']</td></tr>
+<tr><td class="dotbt">相机达到最大数量</td>   <td class="dotb">$info['ulog07']</td></tr>
+<tr><td class="dotbt">未找到Kam相机</td>      <td class="dotb">$info['ulog08']</td></tr>
+<tr><td class="dotbt">添加别人的Kam相机</td>  <td class="dotb">$info['ulog09']</td></tr>
+<tr><td class="dotbt">修改相机设置</td>       <td class="dotb">$info['ulog10']</td></tr>
+<tr><td class="dotbt">修改用户设置</td>       <td class="dotb">$info['ulog11']</td></tr>
+<tr><td class="dotbt">查询告警记录</td>       <td class="dotb">$info['ulog12']</td></tr>
+<tr><td class="dotbt">Kam未注册想要conf</td>  <td class="dotb">$info['ulog13']</td></tr>
+<tr><td class="dotbt">Kam未握手想要conf</td>  <td class="dotb">$info['ulog14']</td></tr>
+<tr><td class="dotbt">Kam未握手想要put</td>   <td class="dotb">$info['ulog15']</td></tr>
+
+
+</table>
+
+<h3>系统日志统计</h3>
+
+<table>
+<tr><td class="dotbt">错误的参数</td>       <td class="dotb">$info['alog01']</td></tr>
+<tr><td class="dotbt">修改用户设置</td>     <td class="dotb">$info['alog02']</td></tr>
+<tr><td class="dotbt">添加用户</td>         <td class="dotb">$info['alog03']</td></tr>
+<tr><td class="dotbt">修改自己设置</td>     <td class="dotb">$info['alog04']</td></tr>
+<tr><td class="dotbt">修改自己设置失败</td> <td class="dotb">$info['alog05']</td></tr>
+<tr><td class="dotbt">Detector IOError</td> <td class="dotb">$info['alog06']</td></tr>
+</table>
+
+<br/>

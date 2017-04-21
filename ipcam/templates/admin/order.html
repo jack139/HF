@@ -1,0 +1,30 @@
+$def with (name, str, orders, cat)
+
+$var title: 充值管理
+$var css:
+$var js:
+$var name: $str $name
+
+<h3>充值管理</h3>
+
+<p><a class="act" href="/admin/order_add">添加新充值单</a>
+  <a class="rdact" href="/admin/order?cat=0">所有订单</a>
+  <a class="rdact" href="/admin/order?cat=1">锁定的订单</a>
+  <a class="rdact" href="/admin/order?cat=2">可用的订单</a>
+  <a class="rdact" href="/admin/order?cat=4">已充值的订单</a>
+  <a class="rdact" href="/admin/order?cat=3">过期的订单</a>
+</p>
+
+<p>
+  $if cat==0: 所有订单
+  $elif cat==1: 锁定的订单（已付款，未收货）
+  $elif cat==2: 可用的订单（已确认收货）
+  $elif cat==4: 已充值的订单
+  $elif cat==3: 过期的订单
+</p>
+
+$for u in orders:
+  <p>
+    <a href="/admin/order_setting?oid=$u[1]">$u[0]</a> 积分：$u[2] 
+  </p>
+

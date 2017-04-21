@@ -1,0 +1,18 @@
+$def with (name, str)
+
+$var title: 添加用户
+$var css:
+$var js:
+$var name: $str $name
+    
+<h3>添加用户</h3>
+
+<form name="settings" method="post" action="/admin/user_add">
+<p>用户名：<input class="formtextinput3" type="text" name="uname" value=""/></p>
+<p>密码：<input class="formtextinput3" type="password" name="passwd" value=""/></p>
+<p>用户状态：<input type="radio" name="login" value="1" checked /> 正常
+    <input type="radio" name="login" value="0" /> 停用</p>
+<p></p>
+<p><input class="formbutton" type="submit" name="button" id="button" value="保存" /><p>
+
+</form>

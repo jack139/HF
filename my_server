@@ -1,0 +1,119 @@
+#!/bin/sh
+
+LOG_PATH="/usr/local/nginx/logs"
+HF_DIR="/usr/local/nginx/html/ipcam_hf"
+
+start_web() {
+        uwsgi  -s /tmp/uwsgi_80.sock -C -M -p 4 -t 30 --limit-as 256 -R 10000 --uid nobody --gid nobody \
+               -d $LOG_PATH"/uwsgi_80.log" --pidfile /tmp/uwsgi_80.pid --pythonpath $HF_DIR
+	nginx
+	return 0
+}
+
+start_back() {
+	nohup python $HF_DIR"/detector.pyc" >> $LOG_PATH"/detector_hf.log" &
+	nohup python $HF_DIR"/daemon.pyc" $HF_DIR $LOG_PATH >> $LOG_PATH"/daemon_hf.log" &
+	return 0 
+}
+
+stop_web() {
+	nginx -s quit
+	kill -9 `pgrep -f "uwsgi"`
+	sleep 1
+	kill -9 `pgrep -f "nginx:"`
+	return 0
+}
+
+stop_back() {
+	kill -9 `pgrep -f "daemon.py"`
+	kill -9 `pgrep -f "detector.py"`
+	kill -9 `pgrep -f "sync_kam"`
+	kill -9 `pgrep -f "rec"`
+	kill -9 `pgrep -f "streaming"`
+    	return 0
+}
+
+status() {
+	ps -f -C uwsgi -C rec -C streaming -C nginx -C python -C sync_kam
+    	return 0
+}
+
+reload() {
+	nginx -s reload
+	return 0
+}
+
+case "$1" in
+    start)
+	case "$2" in
+	  web)
+		start_web
+		RETVAL=$?
+		;;
+	  back)
+		start_back
+		RETVAL=$?
+		;;
+	  *)
+		start_web
+		start_back
+		RETVAL=$?
+		;;
+	esac
+	;;
+    stop)
+	case "$2" in
+	  web)
+		stop_web
+		RETVAL=$?
+		;;
+	  back)
+		stop_back
+		RETVAL=$?
+		;;
+	  *)
+		stop_web
+		stop_back
+		RETVAL=$?
+		;;
+	esac 
+	;;
+    restart)
+	case "$2" in
+	  web)
+		stop_web
+		sleep 2
+		start_web
+		RETVAL=$?
+		;;
+	  back)
+		stop_back
+		sleep 2
+		start_back
+		RETVAL=$?
+		;;
+	  *)
+		stop_web
+		stop_back
+		sleep 2
+		start_back
+		start_web
+		RETVAL=$?
+		;;
+	esac 
+	;;
+    reload)
+	reload
+	RETVAL=$?
+	;;
+    status)
+	status
+	RETVAL=$?
+	;;
+    *)
+	echo $"Usage: my_server {start|stop|restart} {web|back|all} | reload | status"
+	RETVAL=2
+	;;
+esac
+
+exit $RETVAL

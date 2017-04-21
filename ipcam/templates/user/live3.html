@@ -1,0 +1,77 @@
+$def with (name, str, ipcam_links)
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+        <title> 现场影像 - Kam Cloud</title>
+
+        <link rel="stylesheet" href="/static/layout.css" type="text/css" media="screen" charset="utf-8"/>
+        <link rel="stylesheet" href="/static/css/base.css" type="text/css" media="screen" charset="utf-8"/>
+        <link rel="stylesheet" href="/static/css/preview.css" type="text/css" media="screen" charset="utf-8"/>
+
+        <script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="/static/js/live3.js?v=2"></script>
+        <script type="text/javascript" src="/static/js/common.js?v=3"></script>
+        <script type="text/javascript" src="/static/js/Plugin.js?v=2"></script>
+    </head>
+
+<body onLoad="InitInit();">
+
+<script type="text/javascript">
+function InitInit(){
+        m_iWndNum = $len(ipcam_links);
+
+        $for l in ipcam_links:
+	        m_szHostName[$loop.index0] = "$l[4]";
+	        m_szUserPwdValue[$loop.index0] = "$l[3]";
+        m_iStreamType=1; 
+
+        InitLive2();
+}
+</script>
+
+            <div id="content" class="contentleft">
+                <div id="dvChangeSize" class="toptoolbar">
+                        <div id="sp4to3" class="size4to3out" title="4:3" onclick="size4to3()"></div>
+                        <div id="sp16to9" class="size16to9out" title="16:9" onclick="size16to9()"></div>
+                        <div id="sizeauto" class="sizeautoout" title="适应屏幕" onclick="sizeFullscreen()"></div>
+                        <div id="substream" class="substreamout" onclick="streamChoose(1)">
+                                <label name="streamTypeOpt2" class="mousepointer">标清</label>
+                        </div>
+                        <div id="mainstream" class="mainstreamout" onclick="streamChoose(0)">
+                                <label name="streamTypeOpt1" class="mousepointer">高清</label>
+                        </div>
+                        <div id="fullscreen2" class="fullscreen2out" onclick="screenChoose(1)">
+                                <label name="fullscreen1Type" class="mousepointer">全屏</label>
+                        </div>
+                        <div id="fullscreen1" class="fullscreen1out" onclick="screenChoose(0)">
+                                <label name="fullscreen2TypeO" class="mousepointer">首页</label>
+                        </div>
+                </div>
+                <div id="main_plugin" class="mainplugin"></div>
+                <div id="toolbar" class="toolbar">
+                    <div id="divPreviewTips" class="previewtips"><label id="laPreviewTips"></label></div>
+                    <div class="toolbarleft">
+                            <span onclick="StartRealPlay()" class="btnmouseout">
+                                    <div id="play" name="play" class="play"></div>
+                            </span>
+                    </div>
+                    <div class="toolbarright">
+                    </div>  
+                </div>
+            </div>
+
+<script for=PreviewActiveX event="GetSelectWndInfo(SelectWndInfo)">
+        GetSelectWndInfo(SelectWndInfo);
+</script>
+<script for=PreviewActiveX event="GetAllWndInfo(RealplayInfo)">
+        GetAllWndInfo(RealplayInfo);
+</script>
+<script for=PreviewActiveX event="PluginEventHandler(iEventType, iParam1, iParam2)">
+        PluginEventHandler(iEventType, iParam1, iParam2);
+</script>
+
+</body>
+</html>

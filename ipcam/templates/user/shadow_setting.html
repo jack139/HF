@@ -1,0 +1,40 @@
+$def with (name, str, ipcams, shadow)
+
+$var title: 权限设置
+$var css:
+$var js:
+$var name: $str $name
+$var load:
+    
+<h3>影子用户 $name#$shadow 权限设置</h3>
+
+<form name="settings" method="post" action="/shadow_setting">
+  <input type="hidden" name="shadow" value="$shadow"/>
+  <input type="hidden" name="num" value="$len(ipcams[0])"/>
+
+  <b>如果允许影子用户登录，请设置登录密码；如果不允许影子用户登录，请清空密码并保存。</b>
+  <p>用户 $name#$shadow
+  的登录密码：<input class="formtextinput3" type="text" name="passwd2" value="$:ipcams[1]"/></p>
+
+  <table >
+      $for l in ipcams[0]:
+	<tr>
+	<td class="dotb">
+	<input type="hidden" name="camid_$loop.index0" value="$l[1]"/>
+	<input type="radio" name="cam_$loop.index0" value="X"
+		$if l[2]=='X': 
+			checked 
+		/> 允许
+	<input type="radio" name="cam_$loop.index0" value="-"  
+		$if l[2]!='X': 
+			checked 
+		/> 禁止
+	</td><td class="dotb">
+	$l[0]
+	</td>
+	</tr>
+  </table>
+
+    <p><input class="formbutton" type="submit" name="button" id="button" value="保存"/><p>
+
+</form>

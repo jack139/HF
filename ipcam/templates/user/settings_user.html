@@ -1,0 +1,30 @@
+$def with (name, str, settings)
+
+$var title: 帐户设置
+$var css:
+$var js:
+$var name: $str $name
+$var load:
+    
+<h3>帐户设置</h3>
+
+<form name="settings" method="post" action="/settings_user">
+  
+<p>用户名：$settings['uname']</p>
+<p>全名：<input class="formtextinput3" type="text" name="full_name" value="$settings['full_name']"/></p>
+<b>影子用户权限设置：</b> 影子用户只能查看相机影像，不能修改相机设置。
+<p>影子用户1：<a href="/shadow_setting?shadow=1" class="rdact"> $name#1 </a></p>
+<p>影子用户2：<a href="/shadow_setting?shadow=2" class="rdact"> $name#2 </a></p>
+<p>影子用户3：<a href="/shadow_setting?shadow=3" class="rdact"> $name#3 </a></p>
+<p>影子用户4：<a href="/shadow_setting?shadow=4" class="rdact"> $name#4 </a></p>
+<p>影子用户5：<a href="/shadow_setting?shadow=5" class="rdact"> $name#5 </a></p>
+
+<b>修改登录密码：</b>如果不打算修改登录密码，以下可不填
+<p>现登录密码：<input class="formtextinput3" type="password" name="old_pwd" value=""/></p>
+<p>新登录密码：<input class="formtextinput3" type="password" name="new_pwd" value=""/></p>
+<p>再一次输入：<input class="formtextinput3" type="password" name="new_pwd2" value=""/></p>
+<p> </p>
+<p><input class="formbutton" type="submit" name="button" id="button" value="保存" /><p>
+
+</form>
+

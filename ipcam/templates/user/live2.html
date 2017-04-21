@@ -1,0 +1,69 @@
+$def with (name, str, ipcam_links)
+
+$var title: 现场影像
+$var name: $str $name
+
+$var css: /static/css/base.css /static/css/preview.css
+$var js: /static/js/jquery-1.7.1.min.js /static/js/live2.js?v=2 /static/js/common.js?v=3 /static/js/Plugin.js?v=2
+$var load: InitInit();
+
+<script type="text/javascript">
+function InitInit(){
+        m_iWndNum = $len(ipcam_links);
+
+        $for l in ipcam_links:
+	        m_szHostName[$loop.index0] = "$l[4]";
+	        m_szUserPwdValue[$loop.index0] = "$l[3]";
+        m_iStreamType=1; 
+
+        InitLive2();
+}
+</script>
+
+<h3>现场影像</h3>
+
+  <table>
+    <tr>
+        <td class="dotb" width="950" height="720">
+            <div id="content" class="contentleft">
+                <div id="dvChangeSize" class="toptoolbar">
+                        <div id="sp4to3" class="size4to3out" title="4:3" onclick="size4to3()"></div>
+                        <div id="sp16to9" class="size16to9out" title="16:9" onclick="size16to9()"></div>
+                        <div id="substream" class="substreamout" onclick="streamChoose(1)">
+                                <label name="streamTypeOpt2" class="mousepointer">标清</label>
+                        </div>
+                        <div id="mainstream" class="mainstreamout" onclick="streamChoose(0)">
+                                <label name="streamTypeOpt1" class="mousepointer">高清</label>
+                        </div>
+                        <div id="fullscreen2" class="fullscreen2out" onclick="screenChoose(1)">
+                                <label name="fullscreen1Type" class="mousepointer">全屏</label>
+                        </div>
+                        <div id="fullscreen1" class="fullscreen1out" onclick="screenChoose(0)">
+                                <label name="fullscreen2TypeO" class="mousepointer">显示菜单</label>
+                        </div>
+                </div>
+                <div id="main_plugin" class="mainplugin"></div>
+                <div id="toolbar" class="toolbar">
+                    <div id="divPreviewTips" class="previewtips"><label id="laPreviewTips"></label></div>
+                    <div class="toolbarleft">
+                            <span onclick="StartRealPlay()" class="btnmouseout">
+                                    <div id="play" name="play" class="play"></div>
+                            </span>
+                    </div>
+                    <div class="toolbarright">
+                    </div>  
+                </div>
+            </div>
+        </td>
+    </tr>
+  </table>
+
+<script for=PreviewActiveX event="GetSelectWndInfo(SelectWndInfo)">
+        GetSelectWndInfo(SelectWndInfo);
+</script>
+<script for=PreviewActiveX event="GetAllWndInfo(RealplayInfo)">
+        GetAllWndInfo(RealplayInfo);
+</script>
+<script for=PreviewActiveX event="PluginEventHandler(iEventType, iParam1, iParam2)">
+        PluginEventHandler(iEventType, iParam1, iParam2);
+</script>
